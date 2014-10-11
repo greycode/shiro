@@ -1,0 +1,129 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-  2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Apache Shiro is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management.">
+    <meta name="google-site-verification" content="QIax6uT5UX3enoU0G8Pz2pXbQ45KaQuHZ3nCh9V27mw">
+    <meta name="msvalidate.01" content="0B57EB46CBFAD8FD45008D2DB6B6C68C">
+    <meta name="y_key" content="e47896cd6bae4920">
+
+    <title>
+                    Apache Shiro | Java Security Framework
+        </title>
+
+
+    <link rel="icon" type="image/vnd.microsoft.icon" href="assets/images/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/confluence.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <script type="text/javascript" src="../ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery_googleanalytics/jquery.google-analytics.js"></script>
+    <script type="text/javascript">
+        // initialize plugins
+        jQuery(function() {
+            //Google Analytics
+            jQuery.trackPage('UA-11551827-1');
+        });
+    </script>
+</head>
+
+<body>
+    <div id="top-bar"></div>
+
+    <div class="wrapper">
+
+        <div id="header">
+            <a href="index.html"><div id="logo"></div></a>
+            <ul class="navigation">
+                <li><a href="get-started.html">Get Started</a></li>
+                <li><a href="documentation.html">Docs</a></li>
+                <li><a href="web-features.html">Web Apps</a></li>
+                <li><a href="integration.html">Integrations</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </div>
+
+        <div id="content">
+
+            <h1><a name="Introduction-IntroductiontoApacheShiro"></a> Apache Shiro 简介</h1>
+
+<h2><a name="Introduction-WhatisApacheShiro%3F"></a> Apache Shiro 是什么?</h2>
+
+<p>Apache Shiro （发音为“shee-roh”，日语“堡垒（Castle）”的意思）是一个强大而灵活的开源安全框架，它简化了对认证、授权、会话管理以及密码加密的处理。</p>
+
+<p>Apache Shiro 首要的目标是易于使用和理解。安全性有时很复杂甚至让人痛苦，但其实没必要如此，一个（安全）框架应该尽可能隐藏这其中的复杂性并提供一套简洁直观的 API 来简化开发人员在这方面的工作。</p>
+
+<p>使用 Apache Shiro 可以做到：</p>
+
+<ul><li>验证用户身份。</li><li>对用户进行访问控制，比如：
+	<ul><li>判断某个用户是否被赋予某个特定角色</li><li>判断某个用户是否被允许执行某些操作</li></ul>
+	</li><li>可以在各种环境下使用 Session API ，即使是不在web或EJB容器中。</li><li>对认证、访问控制或在会话生命周期中的事件进行响应处理。</li><li>合并一或多个用户的安全数据源并将其展现为单一的复合用户“视图” 。</li><li>使用单点登录(SSO)。</li><li>使用“记住我（Remember Me）”关联登录用户。<br clear="none">
+...<br clear="none">
+等等 - 所有这些都已经集成到一套内聚而易于使用的API中了。</li></ul>
+
+
+<p>Shiro 试图在各种环境中达到以上目标——从最简单的命令行程序到庞大的企业应用——而不比依赖于任何的第三方框架、容器或者应用服务器，当然它可以集成到这些环境中，但也能独立使用。</p>
+
+<h2><a name="Introduction-ApacheShiroFeatures"></a>Apache Shiro 的功能</h2>
+
+<p>Apache Shiro 框架提供了很多功能，下图展示了Shiro的着重点：</p>
+<p>
+<span class="image-wrap" style="display: block; text-align: center"><img src="assets/images/ShiroFeatures.png" style="border: 0px solid black"></span>
+<br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline"></p>
+
+<p>Shiro主要面向Shiro开发团队所谓的“应用安全的四个基础” ——认证，授权，会话管理与密码加密：</p>
+
+<ul><li><b>认证：</b> 或者说是“登录”，用以验证用户身份。
+<br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline"></li><li><b>授权：</b> 访问控制, 比如决定谁可以访问某些资源。
+<br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline"></li><li><b>会话管理：</b> 管理用户相关的session，即使是在非web或EJB应用中。
+<br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline"></li><li><b>加密：</b>可以非常方便地使用（各种）加密算法保证数据的安全。</li></ul>
+
+
+<p>Shiro还包含了一些其他功能以支持不同的应用环境，其中：</p>
+
+<ul><li>对Web的支持： Shiro自带的支持Web的API可以很容易地保证web应用的安全。</li><li>缓存：缓存在Apache Shiro的API中是“一等公民”，可以保证操作的快速高效。</li><li>并发： Apache Shiro的并发功能支持开发多线程的应用。</li><li>测试：对测试的支持可以帮助你编写单元测试与集成测试。</li><li>“以...（身份）运行”（Run As）：允许一个用户使用另外某个用户的身份（执行操作），这个功能常用于管理场景中（比如“以管理员身份运行”）。</li><li>“记住我”（Remember Me）：可以跨会话记住用户身份，只在某些特殊情况下才需要强制登录。</li></ul>
+
+
+<p></p>
+
+        </div>
+
+    </div><!--END WRAPPER-->
+
+    <div id="footer">
+
+        <div class="wrapper">
+
+            <a href="../www.apache.org/foundation/contributing.html">Donate to the ASF</a> |
+            <a href="../www.apache.org/licenses/LICENSE-2.0.html">License</a>
+            <p>Copyright &copy; 2008-2014 The Apache Software Foundation</p>
+            <div class="footer-shield"></div>
+
+        </div> <!--END FOOTER WRAPPER-->
+
+    </div> <!--END FOOTER-->
+
+</body>
+</html>

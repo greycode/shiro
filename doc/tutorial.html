@@ -1,0 +1,596 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-  2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Apache Shiro is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management.">
+    <meta name="google-site-verification" content="QIax6uT5UX3enoU0G8Pz2pXbQ45KaQuHZ3nCh9V27mw">
+    <meta name="msvalidate.01" content="0B57EB46CBFAD8FD45008D2DB6B6C68C">
+    <meta name="y_key" content="e47896cd6bae4920">
+
+    <title>
+                    Apache Shiro | Java Security Framework
+        </title>
+
+
+    <link rel="icon" type="image/vnd.microsoft.icon" href="assets/images/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/confluence.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <script type="text/javascript" src="../ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery_googleanalytics/jquery.google-analytics.js"></script>
+    <script type="text/javascript">
+        // initialize plugins
+        jQuery(function() {
+            //Google Analytics
+            jQuery.trackPage('UA-11551827-1');
+        });
+    </script>
+</head>
+
+<body>
+    <div id="top-bar"></div>
+
+    <div class="wrapper">
+
+        <div id="header">
+            <a href="index.html"><div id="logo"></div></a>
+            <ul class="navigation">
+                <li><a href="get-started.html">Get Started</a></li>
+                <li><a href="documentation.html">Docs</a></li>
+                <li><a href="web-features.html">Web Apps</a></li>
+                <li><a href="integration.html">Integrations</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </div>
+
+        <div id="content">
+
+            <h1><a name="Tutorial-ApacheShiroTutorial"></a>Apache Shiro 教程</h1>
+
+<table align="right" width="275" style="margin-left: 20px; margin-bottom: 20px; border-style: solid; border-width: 2px; border-color: navy" cellpadding="10px">
+
+<tr>
+<td>
+<div id="border">
+  <h2>相关内容</h2>
+	
+  <h3><a href="get-started.html">入 门</a></h3>
+  <p>面向Shiro新用户的一些资源、指南和教程 </br><span style="font-size:11"><a href="get-started.html">阅读更多 &gt;&gt;</a></span></p>	
+	
+	<h3><a href="10-minute-tutorial.html">十分钟Shiro教程</a></h3>
+  <p>用十分钟的时间亲自动手体验下Shiro。</br><span style="font-size:11"><a href="10-minute-tutorial.html">阅读更多 &gt;&gt;</a></span></p>
+	
+  <h3><a href="webapp-tutorial.html">Web 应用教程</a></h3>
+  <p>一步一步教你使用Shiro保护web应用。</br><span style="font-size:11"><a href="webapp-tutorial.html">阅读更多 &gt;&gt;</a></span></p>
+	
+</div>
+</td>
+</tr>
+</table>
+
+<h2><a name="Tutorial-YourFirstApacheShiroApplication"></a>你的第一个Apache Shiro程序</h2>
+
+<p>如果你刚开始接触Apache Shiro，那么这篇教程会向你展示如何搭建一个最基本最简单的Apache Shiro程序，与此同时我们会一边介绍Shiro的核心概念一边帮你熟悉Shiro的设计与API。</p>
+
+<p>如果不想跟着教程编写所有的文件，可以从下面的位置获取一份类似的样例工程以作参考：</p>
+<ul><li>Apache Shiro的SVN地址： <a class="external-link" href="https://svn.apache.org/repos/asf/shiro/trunk/samples/quickstart/" target="_blank">https://svn.apache.org/repos/asf/shiro/trunk/samples/quickstart/</a></li><li> Apache Shiro源码包中的 <tt>samples/quickstart</tt> 目录下。源码可以从 <a href="http://shiro.apache.org/download.html" title="官网下载" target="_blank" style="font-weight:bold">这里</a> 获取。</li></ul>
+
+<h3><a name="Tutorial-Setup"></a>搭建</h3>
+
+<p>该示例中我们会创建一个简单的命令行程序，运行然后立马退出，这样可以让你体验下Shiro的API。</p>
+
+<div class="panelMacro"><table class="infoMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="../https@cwiki.apache.org/confluence/images/icons/emoticons/information.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>任何应用</b><br clear="none">Apache Shiro在设计之初就是为了支持<em>所有</em>的程序——从最小的命令行到最庞大的web集群。即便我们在这里只是创建的一个简单的应用，但Shiro的使用方法却无关乎程序的创建或部署方式。</td></tr></table></div> 
+
+<p>本教程需要用到Java 1.5或是更高的版本。我们将使用 Apache <a class="external-link" href="http://maven.apache.org/">Maven</a>作为构建工具，当然你也可以使用Apache <a class="external-link" href="http://ant.apache.org/">Ant</a>或<a class="external-link" href="http://ant.apache.org/ivy">Ivy</a>。</p>
+
+<p>请确保Maven的版本为2.2.1或更高，在命令行里输入<tt>mvn --version</tt>即可看到类似如下的版本信息：</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>Testing Maven Installation</b></div><div class="codeContent panelContent">
+<pre class="code-java">
+hazlewood:~/shiro-tutorial$ mvn --version
+Apache Maven 2.2.1 (r801777; 2009-08-06 12:16:01-0700)
+Java version: 1.6.0_24
+Java home: /<span class="code-object">System</span>/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+Default locale: en_US, platform encoding: MacRoman
+OS name: <span class="code-quote">"mac os x"</span> version: <span class="code-quote">"10.6.7"</span> arch: <span class="code-quote">"x86_64"</span> Family: <span class="code-quote">"mac"</span>
+</pre>
+</div></div>
+
+<p>然后新建一个文件夹“<b><tt>shiro-tutorial</tt></b>”，将下面的Maven文件<b><tt>pom.xml</tt></b>保存到里面：</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>pom.xml</b></div><div class="codeContent panelContent">
+<pre class="code-xml">
+<span class="code-tag">&lt;?xml version=<span class="code-quote">"1.0"</span> encoding=<span class="code-quote">"UTF-8"</span>?&gt;</span>
+&lt;project xmlns=<span class="code-quote">"http://maven.apache.org/POM/4.0.0"</span>
+         <span class="code-keyword">xmlns:xsi</span>=<span class="code-quote">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         xsi:schemaLocation=<span class="code-quote">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>&gt;
+
+    <span class="code-tag">&lt;modelVersion&gt;</span>4.0.0<span class="code-tag">&lt;/modelVersion&gt;</span>
+    <span class="code-tag">&lt;groupId&gt;</span>org.apache.shiro.tutorials<span class="code-tag">&lt;/groupId&gt;</span>
+    <span class="code-tag">&lt;artifactId&gt;</span>shiro-tutorial<span class="code-tag">&lt;/artifactId&gt;</span>
+    <span class="code-tag">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="code-tag">&lt;/version&gt;</span>
+    <span class="code-tag">&lt;name&gt;</span>First Apache Shiro Application<span class="code-tag">&lt;/name&gt;</span>
+    <span class="code-tag">&lt;packaging&gt;</span>jar<span class="code-tag">&lt;/packaging&gt;</span>
+
+    <span class="code-tag">&lt;properties&gt;</span>
+        <span class="code-tag">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="code-tag">&lt;/project.build.sourceEncoding&gt;</span>
+    <span class="code-tag">&lt;/properties&gt;</span>
+
+    <span class="code-tag">&lt;build&gt;</span>
+        <span class="code-tag">&lt;plugins&gt;</span>
+            <span class="code-tag">&lt;plugin&gt;</span>
+                <span class="code-tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="code-tag">&lt;/groupId&gt;</span>
+                <span class="code-tag">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="code-tag">&lt;/artifactId&gt;</span>
+                <span class="code-tag">&lt;version&gt;</span>2.0.2<span class="code-tag">&lt;/version&gt;</span>
+                <span class="code-tag">&lt;configuration&gt;</span>
+                    <span class="code-tag">&lt;source&gt;</span>1.5<span class="code-tag">&lt;/source&gt;</span>
+                    <span class="code-tag">&lt;target&gt;</span>1.5<span class="code-tag">&lt;/target&gt;</span>
+                    <span class="code-tag">&lt;encoding&gt;</span>${project.build.sourceEncoding}<span class="code-tag">&lt;/encoding&gt;</span>
+                <span class="code-tag">&lt;/configuration&gt;</span>
+            <span class="code-tag">&lt;/plugin&gt;</span>
+
+            &lt;!-- This plugin is only to test run our little application.  It is not
+                 needed in most Shiro-enabled applications: --&gt;
+            <span class="code-tag">&lt;plugin&gt;</span>
+                <span class="code-tag">&lt;groupId&gt;</span>org.codehaus.mojo<span class="code-tag">&lt;/groupId&gt;</span>
+                <span class="code-tag">&lt;artifactId&gt;</span>exec-maven-plugin<span class="code-tag">&lt;/artifactId&gt;</span>
+                <span class="code-tag">&lt;version&gt;</span>1.1<span class="code-tag">&lt;/version&gt;</span>
+                <span class="code-tag">&lt;executions&gt;</span>
+                    <span class="code-tag">&lt;execution&gt;</span>
+                        <span class="code-tag">&lt;goals&gt;</span>
+                            <span class="code-tag">&lt;goal&gt;</span>java<span class="code-tag">&lt;/goal&gt;</span>
+                        <span class="code-tag">&lt;/goals&gt;</span>
+                    <span class="code-tag">&lt;/execution&gt;</span>
+                <span class="code-tag">&lt;/executions&gt;</span>
+                <span class="code-tag">&lt;configuration&gt;</span>
+                    <span class="code-tag">&lt;classpathScope&gt;</span>test<span class="code-tag">&lt;/classpathScope&gt;</span>
+                    <span class="code-tag">&lt;mainClass&gt;</span>Tutorial<span class="code-tag">&lt;/mainClass&gt;</span>
+                <span class="code-tag">&lt;/configuration&gt;</span>
+            <span class="code-tag">&lt;/plugin&gt;</span>
+        <span class="code-tag">&lt;/plugins&gt;</span>
+    <span class="code-tag">&lt;/build&gt;</span>
+
+    <span class="code-tag">&lt;dependencies&gt;</span>
+        <span class="code-tag">&lt;dependency&gt;</span>
+            <span class="code-tag">&lt;groupId&gt;</span>org.apache.shiro<span class="code-tag">&lt;/groupId&gt;</span>
+            <span class="code-tag">&lt;artifactId&gt;</span>shiro-core<span class="code-tag">&lt;/artifactId&gt;</span>
+            <span class="code-tag">&lt;version&gt;</span>1.1.0<span class="code-tag">&lt;/version&gt;</span>
+        <span class="code-tag">&lt;/dependency&gt;</span>
+        &lt;!-- Shiro uses SLF4J for logging.  We'll use the 'simple' binding
+             in this example app.  See http://www.slf4j.org for more info. --&gt;
+        <span class="code-tag">&lt;dependency&gt;</span>
+            <span class="code-tag">&lt;groupId&gt;</span>org.slf4j<span class="code-tag">&lt;/groupId&gt;</span>
+            <span class="code-tag">&lt;artifactId&gt;</span>slf4j-simple<span class="code-tag">&lt;/artifactId&gt;</span>
+            <span class="code-tag">&lt;version&gt;</span>1.6.1<span class="code-tag">&lt;/version&gt;</span>
+            <span class="code-tag">&lt;scope&gt;</span>test<span class="code-tag">&lt;/scope&gt;</span>
+        <span class="code-tag">&lt;/dependency&gt;</span>
+    <span class="code-tag">&lt;/dependencies&gt;</span>
+
+<span class="code-tag">&lt;/project&gt;</span>
+</pre>
+</div></div>
+
+<h4><a name="Tutorial-TheTutorialclass"></a>Tutorial类</h4>
+
+<p>因为要运行一个命令行程序，所以需要创建一个带<tt>public static void main(String[] args)</tt>方法的类。  </p>
+
+<p>在<tt>pom.xml</tt>所在的目录下创建一个*<tt>src/main/java</tt>子目录，然后在<tt>src/main/java</tt>中新建<tt>Tutorial.java</tt>文件，其内容如下：</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>src/main/java/Tutorial.java</b></div><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-keyword">import</span> org.apache.shiro.SecurityUtils;
+<span class="code-keyword">import</span> org.apache.shiro.authc.*;
+<span class="code-keyword">import</span> org.apache.shiro.config.IniSecurityManagerFactory;
+<span class="code-keyword">import</span> org.apache.shiro.mgt.<span class="code-object">SecurityManager</span>;
+<span class="code-keyword">import</span> org.apache.shiro.session.Session;
+<span class="code-keyword">import</span> org.apache.shiro.subject.Subject;
+<span class="code-keyword">import</span> org.apache.shiro.util.Factory;
+<span class="code-keyword">import</span> org.slf4j.Logger;
+<span class="code-keyword">import</span> org.slf4j.LoggerFactory;
+
+<span class="code-keyword">public</span> class Tutorial {
+
+    <span class="code-keyword">private</span> <span class="code-keyword">static</span> <span class="code-keyword">final</span> <span class="code-keyword">transient</span> Logger log = LoggerFactory.getLogger(Tutorial.class);
+
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> void main(<span class="code-object">String</span>[] args) {
+        log.info(<span class="code-quote">"My First Apache Shiro Application"</span>);
+        <span class="code-object">System</span>.exit(0);
+    }
+}
+</pre>
+</div></div>
+
+<p>先不要管上面import的声明语句，这个之后再谈。现在可以得到一个命令行shell程序，它打印完“My First Apache Shiro Application”接着就退出了。</p>
+
+<h3><a name="Tutorial-TestRun"></a>测试运行</h3>
+
+<p>在上述工程所在的根目录命令行提示符中输入以下：</p>
+
+<p><tt>mvn compile exec:java</tt></p>
+
+<p>接着你会看到这个程序运行然后退出并打印类似如下的信息（注意加粗的部分）：</p>
+
+<div class="panel" style="background-color: #eee;border-width: 1px;"><div class="panelHeader" style="border-bottom-width: 1px;background-color:white;"><b>Run the Application</b></div><div class="panelContent" style="background-color:#eee;">
+<p><tt>lhazlewood:~/projects/shiro-tutorial$ mvn compile exec:java</tt></p>
+
+<p><tt>... a bunch of Maven output ...</tt></p>
+
+<p><b><tt>1 [Tutorial.main()] INFO Tutorial - My First Apache Shiro Application</tt></b><br clear="none">
+<tt>lhazlewood:~/projects/shiro-tutorial\$</tt></p>
+</div></div>
+
+<p>运行成功——接下来使用Apache Shiro。随着教程的进行，你可以在每次新增某些代码时运行<tt>mvn compile exec:java</tt>命令来查看变更后的结果。</p>
+
+<h3><a name="Tutorial-EnableShiro"></a>启用Shiro</h3>
+
+<p>在程序中使用Shiro需要知道的第一件事就是，在Shiro中几乎所有的东西都会跟一个叫<tt>SecurityManager</tt>的核心组件相关联。对于熟悉Java 安全编程的码农们要注意，这个SecurityManager是Shiro中的概念——它跟<tt>java.lang.SecurityManager</tt>可不是一回事。</p>
+
+<p>虽然之后我们会于<a href="architecture.html" title="Architecture">架构</a>这一章中再探讨Shiro的设计，但是现在至少应该了解到在使用Shiro的程序中，<tt>SecurityManager</tt>处于核心的位置，而且一个程序只能有一个 <tt>SecurityManager</tt>。所以，我们现在需要做的就是创建一个<tt>SecurityManager</tt>的实例。</p>
+
+<h4><a name="Tutorial-Configuration"></a>配置</h4>
+
+<p>虽然可以直接在代码里实例化<tt>SecurityManager</tt>类，但是Shiro中<tt>SecurityManager</tt>的所有实现类都有很多的配置选项和内部组件，这么做会很痛苦，所以还是使用更加灵活的文本配置方式简单一些。</p>
+
+<p>Shiro默认使用基于<a class="external-link" href="http://en.wikipedia.org/wiki/INI_file" rel="nofollow">INI</a>文本格式的配置。相对于冗杂的XML文件，INI更便于阅读和使用，依赖更少。稍后你会发现INI还可以用来配置简单的对象图。</p>
+
+<div class="panelMacro"><table class="tipMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="../https@cwiki.apache.org/confluence/images/icons/emoticons/check.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>配置格式</b><br clear="none">Shiro中所有的<tt>SecurityManager</tt>实现和相关支持组件都是兼容JavaBeans规范的。所以Shiro可以通过各种格式进行配置比如XML (Spring, JBoss, Guice等), <a class="external-link" href="http://www.yaml.org" rel="nofollow">YAML</a>, JSON, Groovy等等。INI只是Shiro的默认的通用配置方式。</td></tr></table></div>
+
+<h5><a name="Tutorial-%7B%7Bshiro.ini%7D%7D"></a><tt>shiro.ini</tt></h5>
+
+<p>因此这里将使用INI文件来配置<tt>SecurityManager</tt>。首先创建目录结构<b><tt>src/main/resources</tt></b>，然后新建<tt>shiro.ini</tt>文件，内容如下：</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>src/main/resources/shiro.ini</b></div><div class="codeContent panelContent">
+<pre class="code-java">
+# =============================================================================
+# Tutorial INI configuration
+#
+# Usernames/passwords are based on the classic Mel Brooks' film <span class="code-quote">"Spaceballs"</span> :)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Users and their (optional) assigned roles
+# username = password, role1, role2, ..., roleN
+# -----------------------------------------------------------------------------
+[users]
+root = secret, admin
+guest = guest, guest
+presidentskroob = 12345, president
+darkhelmet = ludicrousspeed, darklord, schwartz
+lonestarr = vespa, goodguy, schwartz
+
+# -----------------------------------------------------------------------------
+# Roles with assigned permissions
+# roleName = perm1, perm2, ..., permN
+# -----------------------------------------------------------------------------
+[roles]
+admin = *
+schwartz = lightsaber:*
+goodguy = winnebago:drive:eagle5
+</pre>
+</div></div>
+
+<p>如上，该配置文件只是创建了一组静态的用户帐号，不过对我们的程序来说也是足够了。在这之后的章节中你还会了解到如何使用像是数据库、LDAP等复杂的用户数据源。</p>
+
+<h4><a name="Tutorial-ReferencingtheConfiguration"></a>引用配置</h4>
+
+<p>既然已经定义好了INI文件，现在可以在Tutorial类中创建<tt>SecurityManager</tt>的实例了。修改<tt>main</tt>方法如下：</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-keyword">public</span> <span class="code-keyword">static</span> void main(<span class="code-object">String</span>[] args) {
+
+    log.info(<span class="code-quote">"My First Apache Shiro Application"</span>);
+
+    <span class="code-comment">//1.
+</span>    Factory&lt;<span class="code-object">SecurityManager</span>&gt; factory = <span class="code-keyword">new</span> IniSecurityManagerFactory(<span class="code-quote">"classpath:shiro.ini"</span>);
+
+    <span class="code-comment">//2.
+</span>    <span class="code-object">SecurityManager</span> securityManager = factory.getInstance();
+
+    <span class="code-comment">//3.
+</span>    SecurityUtils.setSecurityManager(securityManager);
+
+    <span class="code-object">System</span>.exit(0);
+}
+</pre>
+</div></div>
+
+<p>搞定——只用了三行代码就在程序里启用了Shiro，是不是很简单？</p>
+
+<p>运行<tt>mvn compile exec:java</tt>，一切正常（由于Shiro默认的日志级别，可能看不到Shiro的输出日志，如果程序运行正常没有错误，那么就是OK的）！</p>
+
+<p>说明一下上面几行代码：</p>
+
+<ol><li>这里使用<tt>IniSecurityManagerFactory</tt>类来提取（解析）位于classpath根路径下的<tt>shiro.ini</tt>文件，这个类也反应了Shiro对<a class="external-link" href="http://en.wikipedia.org/wiki/Factory_method_pattern" rel="nofollow">工厂方法模式</a>的支持，<tt>classpath:</tt>是一个资源指示符，用来告知Shiro载入ini文件的位置（其他前缀如<tt>url:</tt>和<tt>file:</tt>也是支持的）。
+<br clear="none" class="atl-forced-newline"></li><li><tt>factory.getInstance()</tt>会解析INI文件并返回一个配置好的<tt>SecurityManager</tt>实例。
+<br clear="none" class="atl-forced-newline"></li><li>在该示例中，我们把<tt>SecurityManager</tt>设为静态的单例，可以被整个JVM访问到，但是要注意，如果在一个JVM中有多个使用shiro的程序的话这么做是不可以的。简单的情况还好，对于复杂的应用环境应该将<tt>SecurityManager</tt>放到应用独占的内存中（比如web应用的<tt>ServletContext</tt>或是 Spring, Guice及JBoss DI的容器实例中）。</li></ol>
+
+
+<h3><a name="Tutorial-UsingShiro"></a>使用Shiro</h3>
+
+<p>Now that our SecurityManager is set-up and ready-to go, now we can start doing the things we really care about - performing security operations.</p>
+
+<p>When securing our applications, probably the most relevant questions we ask ourselves are &#8220;Who is the current user?&#8221; or &#8220;Is the current user allowed to do X&#8221;? It is common to ask these questions as we're writing code or designing user interfaces: applications are usually built based on user stories, and you want functionality represented (and secured) based on a per-user basis. So, the most natural way for us to think about security in our application is based on the current user. Shiro&#8217;s API fundamentally represents the notion of 'the current user' with its <tt>Subject</tt> concept. </p>
+
+<p>In almost all environments, you can obtain the currently executing user via the following call:</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+Subject currentUser = SecurityUtils.getSubject();
+</pre>
+</div></div>
+
+<p>Using <tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/SecurityUtils.html">SecurityUtils</a>.<a class="external-link" href="static/current/apidocs/org/apache/shiro/SecurityUtils.html#getSubject()">getSubject()</a></tt>, we can obtain the currently executing <tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/subject/Subject.html">Subject</a></tt>.  <em>Subject</em> is a security term that basically means "a security-specific view of the currently executing user".  It is not called a 'User' because the word 'User' is usually associated with a human being. In the security world, the term 'Subject' can mean a human being, but also a 3rd party process, cron job, daemon account, or anything similar. It simply means 'the thing that is currently interacting with the software'. For most intents and purposes though, you can think of the <tt>Subject</tt> as Shiro&#8217;s &#8216;User&#8217; concept.</p>
+
+<p>The <tt>getSubject()</tt> call in a standalone application might return a <tt>Subject</tt> based on user data in an application-specific location, and in a server environment (e.g. web app), it acquires the <tt>Subject</tt> based on user data associated with current thread or incoming request.</p>
+
+<p>Now that you have a <tt>Subject</tt>, what can you do with it?</p>
+
+<p>If you want to make things available to the user during their current session with the application, you can get their session:</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+Session session = currentUser.getSession();
+session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="code-quote">"aValue"</span> );
+</pre>
+</div></div>
+
+<p>The <tt>Session</tt> is a Shiro-specific instance that provides most of what you're used to with regular HttpSessions but with some extra goodies and one <b>big</b> difference:  it does not require an HTTP environment!</p>
+
+<p>If deploying inside a web application, by default the <tt>Session</tt> will be <tt>HttpSession</tt> based.  But, in a non-web environment, like this simple tutorial application, Shiro will automatically use its Enterprise Session Management by default.  This means you get to use the same API in your applications, in any tier, regardless of deployment environment!  This opens a whole new world of applications since any application requiring sessions does not need to be forced to use the <tt>HttpSession</tt> or EJB Stateful Session Beans.  And, any client technology can now share session data.</p>
+
+<p>So now you can acquire a <tt>Subject</tt> and their <tt>Session</tt>.  What about the <em>really</em> useful stuff like checking if they are allowed to do things, like checking against roles and permissions?</p>
+
+<p>Well, we can only do those checks for a known user.  Our <tt>Subject</tt> instance above represents the current user, but <em>who</em> is the current user?  Well, they're anonymous - that is, until they log in at least once.  So, let's do that:</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-keyword">if</span> ( !currentUser.isAuthenticated() ) {
+    <span class="code-comment">//collect user principals and credentials in a gui specific manner 
+</span>    <span class="code-comment">//such as username/password html form, X509 certificate, OpenID, etc.
+</span>    <span class="code-comment">//We'll use the username/password example here since it is the most common.
+</span>    UsernamePasswordToken token = <span class="code-keyword">new</span> UsernamePasswordToken(<span class="code-quote">"lonestarr"</span>, <span class="code-quote">"vespa"</span>);
+
+    <span class="code-comment">//<span class="code-keyword">this</span> is all you have to <span class="code-keyword">do</span> to support 'remember me' (no config - built in!):
+</span>    token.setRememberMe(<span class="code-keyword">true</span>);
+
+    currentUser.login(token);
+}
+</pre>
+</div></div>
+
+<p>That's it!  It couldn't be easier.</p>
+
+<p>But what if their login attempt fails?  You can catch all sorts of specific exceptions that tell you exactly what happened and allows you to handle and react accordingly:</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-keyword">try</span> {
+    currentUser.login( token );
+    <span class="code-comment">//<span class="code-keyword">if</span> no exception, that's it, we're done!
+</span>} <span class="code-keyword">catch</span> ( UnknownAccountException uae ) {
+    <span class="code-comment">//username wasn't in the system, show them an error message?
+</span>} <span class="code-keyword">catch</span> ( IncorrectCredentialsException ice ) {
+    <span class="code-comment">//password didn't match, <span class="code-keyword">try</span> again?
+</span>} <span class="code-keyword">catch</span> ( LockedAccountException lae ) {
+    <span class="code-comment">//account <span class="code-keyword">for</span> that username is locked - can't login.  Show them a message?
+</span>} 
+    ... more types exceptions to check <span class="code-keyword">if</span> you want ...
+} <span class="code-keyword">catch</span> ( AuthenticationException ae ) {
+    <span class="code-comment">//unexpected condition - error?
+</span>}
+</pre>
+</div></div>
+
+<p>There are many different types of exceptions you can check, or throw your own for custom conditions Shiro might not account for.  See the <a class="external-link" href="static/current/apidocs/org/apache/shiro/authc/AuthenticationException.html">AuthenticationException JavaDoc</a> for more. </p>
+
+<div class="panelMacro"><table class="tipMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="../https@cwiki.apache.org/confluence/images/icons/emoticons/check.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>Handy Hint</b><br clear="none">Security best practice is to give generic login failure messages to users because you do not want to aid an attacker trying to break into your system.</td></tr></table></div>
+
+<p>Ok, so by now, we have a logged in user.  What else can we do?</p>
+
+<p>Let's say who they are:</p>
+
+<p></p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-comment">//print their identifying principal (in <span class="code-keyword">this</span> <span class="code-keyword">case</span>, a username):
+</span>log.info( <span class="code-quote">"User ["</span> + currentUser.getPrincipal() + <span class="code-quote">"] logged in successfully."</span> );
+</pre>
+</div></div>
+
+<p>We can also test to see if they have specific role or not:</p>
+
+<p></p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-keyword">if</span> ( currentUser.hasRole( <span class="code-quote">"schwartz"</span> ) ) {
+    log.info(<span class="code-quote">"May the Schwartz be with you!"</span> );
+} <span class="code-keyword">else</span> {
+    log.info( <span class="code-quote">"Hello, mere mortal."</span> );
+}
+</pre>
+</div></div>
+
+<p>We can also see if they have a permission to act on a certain type of entity:</p>
+
+<p></p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-keyword">if</span> ( currentUser.isPermitted( <span class="code-quote">"lightsaber:weild"</span> ) ) {
+    log.info(<span class="code-quote">"You may use a lightsaber ring.  Use it wisely."</span>);
+} <span class="code-keyword">else</span> {
+    log.info(<span class="code-quote">"Sorry, lightsaber rings are <span class="code-keyword">for</span> schwartz masters only."</span>);
+}
+</pre>
+</div></div>
+
+<p>Also, we can perform an extremely powerful <em>instance-level</em> permission check - the ability to see if the user has the ability to access a specific instance of a type:</p>
+
+<p></p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-keyword">if</span> ( currentUser.isPermitted( <span class="code-quote">"winnebago:drive:eagle5"</span> ) ) {
+    log.info(<span class="code-quote">"You are permitted to 'drive' the 'winnebago' with license plate (id) 'eagle5'.  "</span> +
+                <span class="code-quote">"Here are the keys - have fun!"</span>);
+} <span class="code-keyword">else</span> {
+    log.info(<span class="code-quote">"Sorry, you aren't allowed to drive the 'eagle5' winnebago!"</span>);
+}
+</pre>
+</div></div>
+
+<p>Piece of cake, right?</p>
+
+<p>Finally, when the user is done using the application, they can log out:</p>
+
+<p></p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+currentUser.logout(); <span class="code-comment">//removes all identifying information and invalidates their session too.</span>
+</pre>
+</div></div>
+
+<h4><a name="Tutorial-FinalTutorialclass"></a>Final Tutorial class</h4>
+
+<p>After adding in the above code examples, here is our final Tutorial class file.  Feel free to edit and play with it and change the security checks (and the INI configuration) as you like:</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>Final src/main/java/Tutorial.java</b></div><div class="codeContent panelContent">
+<pre class="code-java">
+<span class="code-keyword">import</span> org.apache.shiro.SecurityUtils;
+<span class="code-keyword">import</span> org.apache.shiro.authc.*;
+<span class="code-keyword">import</span> org.apache.shiro.config.IniSecurityManagerFactory;
+<span class="code-keyword">import</span> org.apache.shiro.mgt.<span class="code-object">SecurityManager</span>;
+<span class="code-keyword">import</span> org.apache.shiro.session.Session;
+<span class="code-keyword">import</span> org.apache.shiro.subject.Subject;
+<span class="code-keyword">import</span> org.apache.shiro.util.Factory;
+<span class="code-keyword">import</span> org.slf4j.Logger;
+<span class="code-keyword">import</span> org.slf4j.LoggerFactory;
+
+<span class="code-keyword">public</span> class Tutorial {
+
+    <span class="code-keyword">private</span> <span class="code-keyword">static</span> <span class="code-keyword">final</span> <span class="code-keyword">transient</span> Logger log = LoggerFactory.getLogger(Tutorial.class);
+
+
+    <span class="code-keyword">public</span> <span class="code-keyword">static</span> void main(<span class="code-object">String</span>[] args) {
+        log.info(<span class="code-quote">"My First Apache Shiro Application"</span>);
+
+        Factory&lt;<span class="code-object">SecurityManager</span>&gt; factory = <span class="code-keyword">new</span> IniSecurityManagerFactory(<span class="code-quote">"classpath:shiro.ini"</span>);
+        <span class="code-object">SecurityManager</span> securityManager = factory.getInstance();
+        SecurityUtils.setSecurityManager(securityManager);
+
+
+        <span class="code-comment">// get the currently executing user:
+</span>        Subject currentUser = SecurityUtils.getSubject();
+
+        <span class="code-comment">// Do some stuff with a Session (no need <span class="code-keyword">for</span> a web or EJB container!!!)
+</span>        Session session = currentUser.getSession();
+        session.setAttribute(<span class="code-quote">"someKey"</span>, <span class="code-quote">"aValue"</span>);
+        <span class="code-object">String</span> value = (<span class="code-object">String</span>) session.getAttribute(<span class="code-quote">"someKey"</span>);
+        <span class="code-keyword">if</span> (value.equals(<span class="code-quote">"aValue"</span>)) {
+            log.info(<span class="code-quote">"Retrieved the correct value! ["</span> + value + <span class="code-quote">"]"</span>);
+        }
+
+        <span class="code-comment">// let's login the current user so we can check against roles and permissions:
+</span>        <span class="code-keyword">if</span> (!currentUser.isAuthenticated()) {
+            UsernamePasswordToken token = <span class="code-keyword">new</span> UsernamePasswordToken(<span class="code-quote">"lonestarr"</span>, <span class="code-quote">"vespa"</span>);
+            token.setRememberMe(<span class="code-keyword">true</span>);
+            <span class="code-keyword">try</span> {
+                currentUser.login(token);
+            } <span class="code-keyword">catch</span> (UnknownAccountException uae) {
+                log.info(<span class="code-quote">"There is no user with username of "</span> + token.getPrincipal());
+            } <span class="code-keyword">catch</span> (IncorrectCredentialsException ice) {
+                log.info(<span class="code-quote">"Password <span class="code-keyword">for</span> account "</span> + token.getPrincipal() + <span class="code-quote">" was incorrect!"</span>);
+            } <span class="code-keyword">catch</span> (LockedAccountException lae) {
+                log.info(<span class="code-quote">"The account <span class="code-keyword">for</span> username "</span> + token.getPrincipal() + <span class="code-quote">" is locked.  "</span> +
+                        <span class="code-quote">"Please contact your administrator to unlock it."</span>);
+            }
+            <span class="code-comment">// ... <span class="code-keyword">catch</span> more exceptions here (maybe custom ones specific to your application?
+</span>            <span class="code-keyword">catch</span> (AuthenticationException ae) {
+                <span class="code-comment">//unexpected condition?  error?
+</span>            }
+        }
+
+        <span class="code-comment">//say who they are:
+</span>        <span class="code-comment">//print their identifying principal (in <span class="code-keyword">this</span> <span class="code-keyword">case</span>, a username):
+</span>        log.info(<span class="code-quote">"User ["</span> + currentUser.getPrincipal() + <span class="code-quote">"] logged in successfully."</span>);
+
+        <span class="code-comment">//test a role:
+</span>        <span class="code-keyword">if</span> (currentUser.hasRole(<span class="code-quote">"schwartz"</span>)) {
+            log.info(<span class="code-quote">"May the Schwartz be with you!"</span>);
+        } <span class="code-keyword">else</span> {
+            log.info(<span class="code-quote">"Hello, mere mortal."</span>);
+        }
+
+        <span class="code-comment">//test a typed permission (not instance-level)
+</span>        <span class="code-keyword">if</span> (currentUser.isPermitted(<span class="code-quote">"lightsaber:weild"</span>)) {
+            log.info(<span class="code-quote">"You may use a lightsaber ring.  Use it wisely."</span>);
+        } <span class="code-keyword">else</span> {
+            log.info(<span class="code-quote">"Sorry, lightsaber rings are <span class="code-keyword">for</span> schwartz masters only."</span>);
+        }
+
+        <span class="code-comment">//a (very powerful) Instance Level permission:
+</span>        <span class="code-keyword">if</span> (currentUser.isPermitted(<span class="code-quote">"winnebago:drive:eagle5"</span>)) {
+            log.info(<span class="code-quote">"You are permitted to 'drive' the winnebago with license plate (id) 'eagle5'.  "</span> +
+                    <span class="code-quote">"Here are the keys - have fun!"</span>);
+        } <span class="code-keyword">else</span> {
+            log.info(<span class="code-quote">"Sorry, you aren't allowed to drive the 'eagle5' winnebago!"</span>);
+        }
+
+        <span class="code-comment">//all done - log out!
+</span>        currentUser.logout();
+
+        <span class="code-object">System</span>.exit(0);
+    }
+}
+</pre>
+</div></div>
+
+<h3><a name="Tutorial-Summary"></a>Summary</h3>
+
+<p>Hopefully this introduction tutorial helped you understand how to set-up Shiro in a basic application as well Shiro's primary design concepts, the <tt>Subject</tt> and <tt>SecurityManager</tt>.</p>
+
+<p>But this was a fairly simple application.  You might have asked yourself, "What if I don't want to use INI user accounts and instead want to connect to a more complex user data source?"</p>
+
+<p>To answer that question requires a little deeper understanding of Shiro's architecture and supporting configuration mechanisms.  We'll cover Shiro's <a href="architecture.html" title="Architecture">Architecture</a> next.</p>
+
+
+        </div>
+
+    </div><!--END WRAPPER-->
+
+    <div id="footer">
+
+        <div class="wrapper">
+
+            <a href="../www.apache.org/foundation/contributing.html">Donate to the ASF</a> |
+            <a href="../www.apache.org/licenses/LICENSE-2.0.html">License</a>
+            <p>Copyright &copy; 2008-2014 The Apache Software Foundation</p>
+            <div class="footer-shield"></div>
+
+        </div> <!--END FOOTER WRAPPER-->
+
+    </div> <!--END FOOTER-->
+
+</body>
+</html>

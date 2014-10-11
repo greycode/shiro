@@ -1,0 +1,143 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-  2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Apache Shiro is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management.">
+    <meta name="google-site-verification" content="QIax6uT5UX3enoU0G8Pz2pXbQ45KaQuHZ3nCh9V27mw">
+    <meta name="msvalidate.01" content="0B57EB46CBFAD8FD45008D2DB6B6C68C">
+    <meta name="y_key" content="e47896cd6bae4920">
+
+    <title>
+                    Apache Shiro | Java Security Framework
+        </title>
+
+
+    <link rel="icon" type="image/vnd.microsoft.icon" href="assets/images/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/confluence.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <script type="text/javascript" src="../ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery_googleanalytics/jquery.google-analytics.js"></script>
+    <script type="text/javascript">
+        // initialize plugins
+        jQuery(function() {
+            //Google Analytics
+            jQuery.trackPage('UA-11551827-1');
+        });
+    </script>
+</head>
+
+<body>
+    <div id="top-bar"></div>
+
+    <div class="wrapper">
+
+        <div id="header">
+            <a href="index.html"><div id="logo"></div></a>
+            <ul class="navigation">
+                <li><a href="get-started.html">Get Started</a></li>
+                <li><a href="documentation.html">Docs</a></li>
+                <li><a href="web-features.html">Web Apps</a></li>
+                <li><a href="integration.html">Integrations</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </div>
+
+        <div id="content">
+
+            <h1><a name="CryptographyFeatures-ApacheShiroCryptographyFeatures"></a>Apache Shiro Cryptography Features</h1>
+
+
+<div class="addthis_toolbox addthis_default_style">
+<a class="addthis_button_compact" href="../www.addthis.com/bookmark.php@v=250&pubid=ra-4d66ef016022c3bd">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<script type="text/javascript" src="../s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d66ef016022c3bd"></script>
+
+
+<p><br clear="none" class="atl-forced-newline">
+Cryptography is the practice of protecting information from undesired access by hiding it or converting it into nonsense so know one else can read it. Shiro focuses on two core elements of Cryptography: ciphers that encrypt data like email using a public or private key, and hashes (aka message digests) that irreversibly encrypt data like passwords.</p>
+
+<p>Shiro Cryptography's primary goal is take what has traditionally be an extremely complex field and make it easy for the rest of us while providing a robust set of cryptography features.</p>
+
+<h2><a name="CryptographyFeatures-SimplicityFeatures"></a>Simplicity Features</h2>
+
+<ul><li><b>Interface-driven, POJO based</b> - All of Shiro's APIs are interface-based and implemented as POJOs.  This allows you to easily configure Shiro Cryptography components with JavaBeans-compatible formats like JSON, YAML, Spring XML and others.  You can also override or customize Shiro as you see necessary, leveraging its API to save you time and effort.</li></ul>
+
+
+<ul><li><b>Simplified wrapper over JCE</b> - The Java Cryptography Extension (JCE) can be complicated and difficult to use unless you're a cryptography expert.  Shiro's Cryptography APIs are much easier to understand and use, and they dramatically simplify JCE concepts.  So now even Cryptography novices can find what they need in minutes rather than hours or days. And you won't sacrifice any functionality because you still have access to more complicated JCE options if you need them.</li></ul>
+
+
+<ul><li><b>&#8220;Object Orientifies&#8221; cryptography concepts</b> - The JDK/JCE's Cipher and Message Digest (Hash) classes are abstract classes and quite confusing, requiring you to use obtuse factory methods with type-unsafe string arguments to acquire instances you want to use.  Shiro 'Object Orientifies' Ciphers and Hashes, basing them on a clean object hierarchy, and allows you to use them by simple instantiation.</li></ul>
+
+
+<ul><li><b>Runtime Exceptions</b> - Like everywhere else in Shiro, all cryptography exceptions are RuntimeExceptions.  You can decide whether or not to catch an exception based on your needs.</li></ul>
+
+
+<h2><a name="CryptographyFeatures-CipherFeatures"></a>Cipher Features</h2>
+
+<ul><li><b>OO Hierarchy</b> - Unlike the JCE, Shiro Cipher representations follow an Object-Oriented class hierarchy that match their mathematical concepts: <tt>AbstractSymmetricCipherService</tt>, <tt>DefaultBlockCipherService</tt>, <tt>AesCipherService</tt>, etc.  This allows you to easily override existing classes and extend functionality as needed.</li></ul>
+
+
+<ul><li><b>Just instantiate a class</b> - Unlike the JCE's confusing factory methods using String token arguments, using Shiro Ciphers are much easier - just instantiate a class, configure it with JavaBeans properties as necessary, and use it as desired.  For example, <tt>new AesCipherService()</tt>.</li></ul>
+
+
+<ul><li><b>More secure default settings</b> - The JCE Cipher instances assume a 'lowest common denominator' default and do not automatically enable more secure options.  Shiro will automatically enable the more secure options to ensure your data is as safe as it can be by default, helping you prevent accidental security holes.</li></ul>
+
+
+<h2><a name="CryptographyFeatures-HashFeatures"></a>Hash Features</h2>
+
+<ul><li><b>Deault interface implementations</b> - Shiro provides default Hash (aka Message Digests in the JDK) implementations out-of-the-box, such as MD5, SHA1, SHA-256, et al.  This provides a type-safe construction method (e.g. <tt>new Md5Hash(data)</tt>) instead of being forced to use type-unsafe string factory methods in the JDK.</li></ul>
+
+
+<ul><li><b>Built-in Hex and Base64 conversion</b> - Shiro Hash instances can automatically provide Hex and Base-64 encoding of hashed data via their <tt>toHex()</tt> and <tt>toBase64()</tt> methods.  So now you do not need to figure out how to correctly encode the data yourself.</li></ul>
+
+
+<ul><li><b>Built-in Salt and repeated hashing support</b> - Salts and repeated hash iterations are very valuable tools when hashing data, especially when it comes to protecting user passwords.  Shiro's Hash implementations support salts and multiple hash iterations out of the box so you don't have to repeat this logic anywhere you might need it.</li></ul>
+
+
+<h2><a name="CryptographyFeatures-GetStartedin10MinuteswithShiro"></a>Get Started in 10 Minutes with Shiro</h2>
+<p>Try out Shiro for yourself with our <a href="10-minute-tutorial.html" title="10 Minute Tutorial">10 Minute Tutorial</a>.  And if you have any questions about Shiro, please check out our <a href="forums.html" title="Forums">community forum</a> or <a href="mailing-lists.html" title="Mailing Lists">user mailing list</a> for answers from the community.</p>
+
+        </div>
+
+    </div><!--END WRAPPER-->
+
+    <div id="footer">
+
+        <div class="wrapper">
+
+            <a href="../www.apache.org/foundation/contributing.html">Donate to the ASF</a> |
+            <a href="../www.apache.org/licenses/LICENSE-2.0.html">License</a>
+            <p>Copyright &copy; 2008-2014 The Apache Software Foundation</p>
+            <div class="footer-shield"></div>
+
+        </div> <!--END FOOTER WRAPPER-->
+
+    </div> <!--END FOOTER-->
+
+</body>
+</html>
