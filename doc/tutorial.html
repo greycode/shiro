@@ -72,7 +72,7 @@
 <div id="border">
   <h2>相关内容</h2>
 	
-  <h3><a href="get-started.html">入 门</a></h3>
+  <h3><a href="get-started.html">开始使用</a></h3>
   <p>面向Shiro新用户的一些资源、指南和教程 </br><span style="font-size:11"><a href="get-started.html">阅读更多 &gt;&gt;</a></span></p>	
 	
 	<h3><a href="10-minute-tutorial.html">十分钟Shiro教程</a></h3>
@@ -325,11 +325,11 @@ goodguy = winnebago:drive:eagle5
 
 <h3><a name="Tutorial-UsingShiro"></a>使用Shiro</h3>
 
-<p>Now that our SecurityManager is set-up and ready-to go, now we can start doing the things we really care about - performing security operations.</p>
+<p>既然SecurityManager已经配置好，现在可以做我们真正关心的事情——执行安全操作。</p>
 
-<p>When securing our applications, probably the most relevant questions we ask ourselves are &#8220;Who is the current user?&#8221; or &#8220;Is the current user allowed to do X&#8221;? It is common to ask these questions as we're writing code or designing user interfaces: applications are usually built based on user stories, and you want functionality represented (and secured) based on a per-user basis. So, the most natural way for us to think about security in our application is based on the current user. Shiro&#8217;s API fundamentally represents the notion of 'the current user' with its <tt>Subject</tt> concept. </p>
+<p>当保护我们的程序时，最关注的问题可能就是“当前的用户是谁？”或“用户是否允许执行某项操作？”。在设计/编写基于用户故事的代码/界面而你又想拥有基于每个用户展现（或被保护）的功能时这些问题就很常见了。所以很常见的思路就是根据当前的用户来保证应用的安全。而“当前用户”这个概念在Shiro的API中是用<tt>Subject</tt>来表示的。 </p>
 
-<p>In almost all environments, you can obtain the currently executing user via the following call:</p>
+<p>在几乎所有环境中，你都可以通过如下调用获取当前正执行操作的用户：</p>
 
 <div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
 <pre class="code-java">
@@ -337,13 +337,13 @@ Subject currentUser = SecurityUtils.getSubject();
 </pre>
 </div></div>
 
-<p>Using <tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/SecurityUtils.html">SecurityUtils</a>.<a class="external-link" href="static/current/apidocs/org/apache/shiro/SecurityUtils.html#getSubject()">getSubject()</a></tt>, we can obtain the currently executing <tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/subject/Subject.html">Subject</a></tt>.  <em>Subject</em> is a security term that basically means "a security-specific view of the currently executing user".  It is not called a 'User' because the word 'User' is usually associated with a human being. In the security world, the term 'Subject' can mean a human being, but also a 3rd party process, cron job, daemon account, or anything similar. It simply means 'the thing that is currently interacting with the software'. For most intents and purposes though, you can think of the <tt>Subject</tt> as Shiro&#8217;s &#8216;User&#8217; concept.</p>
+<p>使用 <tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/SecurityUtils.html">SecurityUtils</a>.<a class="external-link" href="static/current/apidocs/org/apache/shiro/SecurityUtils.html#getSubject()">getSubject()</a></tt>可以得到当前执行（操作的）<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/subject/Subject.html">Subject</a></tt>。 <em>Subject</em>是一个安全术语，大概意思就是安全领域视角中的“当前执行操作的用户”。没有使用“User”的原因是这个词通常会联想到人，而在安全领域，术语“Subject”可能是指人，或者第三方进程，定时任务，后台账户等等。所以Subject大概就是“当前正与软件交互的事物”。多数情况下，你可以认为<tt>Subject</tt>就是Shiro中的“User”。</p>
 
-<p>The <tt>getSubject()</tt> call in a standalone application might return a <tt>Subject</tt> based on user data in an application-specific location, and in a server environment (e.g. web app), it acquires the <tt>Subject</tt> based on user data associated with current thread or incoming request.</p>
+<p><tt>getSubject()</tt>调用在独立程序中返回的<tt>Subject</tt>是基于程序特定位置的用户数据，而在服务器环境下返回的<tt>Subject</tt>是基于与当前进程或当前请求关联的用户数据。.</p>
 
-<p>Now that you have a <tt>Subject</tt>, what can you do with it?</p>
+<p>现在有了<tt>Subject</tt>，可以做些什么呢？</p>
 
-<p>If you want to make things available to the user during their current session with the application, you can get their session:</p>
+<p>如果想让某些数据在用户的当前会话中都可使用，可以如下：</p>
 
 <div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
 <pre class="code-java">
@@ -352,13 +352,13 @@ session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="co
 </pre>
 </div></div>
 
-<p>The <tt>Session</tt> is a Shiro-specific instance that provides most of what you're used to with regular HttpSessions but with some extra goodies and one <b>big</b> difference:  it does not require an HTTP environment!</p>
+<p>这个<tt>Session</tt>是Shiro特有的，它提供了HttpSessions大部分的以及其他一些功能，而最大的不同是，Session是不需要HTTP 环境的。</p>
 
-<p>If deploying inside a web application, by default the <tt>Session</tt> will be <tt>HttpSession</tt> based.  But, in a non-web environment, like this simple tutorial application, Shiro will automatically use its Enterprise Session Management by default.  This means you get to use the same API in your applications, in any tier, regardless of deployment environment!  This opens a whole new world of applications since any application requiring sessions does not need to be forced to use the <tt>HttpSession</tt> or EJB Stateful Session Beans.  And, any client technology can now share session data.</p>
+<p>如果部署到web环境，<tt>Session</tt>默认使用<tt>HttpSession</tt>。但若是在非web环境，就比如本教程，Shiro会自动使用它自有的企业会话管理功能。也就是说，不管什么样的环境下，你只需要使用一样的API就可以了！这简直就是打开了新世界的大门，从此不必再纠缠于<tt>HttpSession</tt>或EJB的Session Beans，而且任何的客户端都可以共享会话数据了。</p>
 
-<p>So now you can acquire a <tt>Subject</tt> and their <tt>Session</tt>.  What about the <em>really</em> useful stuff like checking if they are allowed to do things, like checking against roles and permissions?</p>
+<p>现在可以得到<tt>Subject</tt>以及<tt>Session</tt>了，那么对于做那些<em>真正</em>实用的事情（比如检查是否允许做什么或是查看权限角色么的）又怎样呢？</p>
 
-<p>Well, we can only do those checks for a known user.  Our <tt>Subject</tt> instance above represents the current user, but <em>who</em> is the current user?  Well, they're anonymous - that is, until they log in at least once.  So, let's do that:</p>
+<p>好吧，我们只能对一个已知的用户做那样的判定/检查。<tt>Subject</tt>的实例虽然代表的是当前用户——不过，当前用户又是谁呢？至少在登录过前还是匿名的，所以我们需要这么做：</p>
 
 <div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
 <pre class="code-java">
@@ -368,7 +368,7 @@ session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="co
 </span>    <span class="code-comment">//We'll use the username/password example here since it is the most common.
 </span>    UsernamePasswordToken token = <span class="code-keyword">new</span> UsernamePasswordToken(<span class="code-quote">"lonestarr"</span>, <span class="code-quote">"vespa"</span>);
 
-    <span class="code-comment">//<span class="code-keyword">this</span> is all you have to <span class="code-keyword">do</span> to support 'remember me' (no config - built in!):
+    <span class="code-comment">// 使用“记住我”就只需这一行（无需配置，自带支持）
 </span>    token.setRememberMe(<span class="code-keyword">true</span>);
 
     currentUser.login(token);
@@ -376,21 +376,21 @@ session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="co
 </pre>
 </div></div>
 
-<p>That's it!  It couldn't be easier.</p>
+<p>就是这样，简直不能更简单了！</p>
 
-<p>But what if their login attempt fails?  You can catch all sorts of specific exceptions that tell you exactly what happened and allows you to handle and react accordingly:</p>
+<p>不过要是登录失败了呢？你可以通过捕捉各种异常来知晓原因并做出相应的回应：</p>
 
 <div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
 <pre class="code-java">
 <span class="code-keyword">try</span> {
     currentUser.login( token );
-    <span class="code-comment">//<span class="code-keyword">if</span> no exception, that's it, we're done!
+    <span class="code-comment">// 如果没有问题，那就对了，搞定！
 </span>} <span class="code-keyword">catch</span> ( UnknownAccountException uae ) {
-    <span class="code-comment">//username wasn't in the system, show them an error message?
+    <span class="code-comment">// 未知用户的帐号，告诉他们错误信息？
 </span>} <span class="code-keyword">catch</span> ( IncorrectCredentialsException ice ) {
-    <span class="code-comment">//password didn't match, <span class="code-keyword">try</span> again?
+    <span class="code-comment">// 密码不匹配，重试？
 </span>} <span class="code-keyword">catch</span> ( LockedAccountException lae ) {
-    <span class="code-comment">//account <span class="code-keyword">for</span> that username is locked - can't login.  Show them a message?
+    <span class="code-comment">// 该帐号被锁定了，无法登录。给他们显示一条信息？
 </span>} 
     ... more types exceptions to check <span class="code-keyword">if</span> you want ...
 } <span class="code-keyword">catch</span> ( AuthenticationException ae ) {
@@ -399,13 +399,13 @@ session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="co
 </pre>
 </div></div>
 
-<p>There are many different types of exceptions you can check, or throw your own for custom conditions Shiro might not account for.  See the <a class="external-link" href="static/current/apidocs/org/apache/shiro/authc/AuthenticationException.html">AuthenticationException JavaDoc</a> for more. </p>
+<p>还有很多类型的异常可以检查，或者也可以抛出自己定义的异常。详情还是参考文档<a class="external-link" href="static/current/apidocs/org/apache/shiro/authc/AuthenticationException.html">AuthenticationException JavaDoc</a>。</p>
 
-<div class="panelMacro"><table class="tipMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="../https@cwiki.apache.org/confluence/images/icons/emoticons/check.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>Handy Hint</b><br clear="none">Security best practice is to give generic login failure messages to users because you do not want to aid an attacker trying to break into your system.</td></tr></table></div>
+<div class="panelMacro"><table class="tipMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="../https@cwiki.apache.org/confluence/images/icons/emoticons/check.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>提醒一下</b><br clear="none">安全领域的最佳实践是给用户提供通用的登录错误信息，毕竟你也不想帮助黑客们根据不同的提示攻破系统。</td></tr></table></div>
 
-<p>Ok, so by now, we have a logged in user.  What else can we do?</p>
+<p>好吧，现在有一个登录的用户了，还可以做点什么呢？</p>
 
-<p>Let's say who they are:</p>
+<p>看看登录用户的身份吧：</p>
 
 <p></p>
 
@@ -416,7 +416,7 @@ session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="co
 </pre>
 </div></div>
 
-<p>We can also test to see if they have specific role or not:</p>
+<p>验证是否具有某个角色：</p>
 
 <p></p>
 
@@ -430,7 +430,7 @@ session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="co
 </pre>
 </div></div>
 
-<p>We can also see if they have a permission to act on a certain type of entity:</p>
+<p>是否有某个权限：</p>
 
 <p></p>
 
@@ -444,7 +444,7 @@ session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="co
 </pre>
 </div></div>
 
-<p>Also, we can perform an extremely powerful <em>instance-level</em> permission check - the ability to see if the user has the ability to access a specific instance of a type:</p>
+<p>甚至是<em>实例级别</em>的权限检查（查看用户是否能访问某个类型的实例）：</p>
 
 <p></p>
 
@@ -459,9 +459,9 @@ session.setAttribute( <span class="code-quote">"someKey"</span>, <span class="co
 </pre>
 </div></div>
 
-<p>Piece of cake, right?</p>
+<p>小菜一碟，是吧？</p>
 
-<p>Finally, when the user is done using the application, they can log out:</p>
+<p>最后，当用户完成操作时就可以登出了：</p>
 
 <p></p>
 
@@ -471,9 +471,9 @@ currentUser.logout(); <span class="code-comment">//removes all identifying infor
 </pre>
 </div></div>
 
-<h4><a name="Tutorial-FinalTutorialclass"></a>Final Tutorial class</h4>
+<h4><a name="Tutorial-FinalTutorialclass"></a>最终版本的Tutorial类</h4>
 
-<p>After adding in the above code examples, here is our final Tutorial class file.  Feel free to edit and play with it and change the security checks (and the INI configuration) as you like:</p>
+<p>通过上面的示例，下面就是我们最终的Tutorial类文件了，你可以随意的修改：</p>
 
 <div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>Final src/main/java/Tutorial.java</b></div><div class="codeContent panelContent">
 <pre class="code-java">
@@ -566,13 +566,13 @@ currentUser.logout(); <span class="code-comment">//removes all identifying infor
 </pre>
 </div></div>
 
-<h3><a name="Tutorial-Summary"></a>Summary</h3>
+<h3><a name="Tutorial-Summary"></a>总结</h3>
 
-<p>Hopefully this introduction tutorial helped you understand how to set-up Shiro in a basic application as well Shiro's primary design concepts, the <tt>Subject</tt> and <tt>SecurityManager</tt>.</p>
+<p>希望这篇介绍能帮助你了解如何搭建一个Shiro环境以及一些主要的概念，比如<tt>Subject</tt>、<tt>SecurityManager</tt>等。</p>
 
-<p>But this was a fairly simple application.  You might have asked yourself, "What if I don't want to use INI user accounts and instead want to connect to a more complex user data source?"</p>
+<p>不过这只是一个简单应用。你可能会问：“如果要使用更加复杂而不是INI文件配置的用户数据源该怎么做呢？”</p>
 
-<p>To answer that question requires a little deeper understanding of Shiro's architecture and supporting configuration mechanisms.  We'll cover Shiro's <a href="architecture.html" title="Architecture">Architecture</a> next.</p>
+<p>解决这个问题需要对Shiro的架构和配置机制有更深入的理解，我们下一章<a href="architecture.html" title="Architecture">Architecture</a>再探讨。</p>
 
 
         </div>
