@@ -39,7 +39,7 @@
         // initialize plugins
         jQuery(function() {
             //Google Analytics
-            jQuery.trackPage('UA-11551827-1');
+            jQuery.trackPage('UA-55157705-1');
         });
     </script>
 </head>
@@ -63,22 +63,21 @@
 
         <div id="content">
 
-            <h1><a name="Architecture-ApacheShiroArchitecture"></a>Apache Shiro Architecture 架构</h1>
+            <h1><a name="Architecture-ApacheShiroArchitecture"></a>Apache Shiro的架构</h1>
 
-<p>Apache Shiro's design goals设计目标是简化 are to simplify application security by being intuitive and easy to use.  Shiro's core design models how most people think about application security - in the context of someone (or something) interacting with an application.</p>
+<p>Apache Shiro的设计目标是通过其直观易用来简化安全应用的开发， Shiro的核心设计以多数人对应用安全的认识为模型——在某个环境下某人或某物与应用的交互。</p>
 
-<p>Software applications are usually designed based on user stories.  That is, you'll often design user interfaces or service APIs based on how a user would (or should) interact with the software.  For example, you might say, "If the user interacting with my application is logged in, I will show them a button they can click to view their account information.  If they are not logged in, I will show a sign-up button."  </p>
+<p>应用软件通常是基于用户故事（User Story）而设计，就是说我们经常会根据用户如何与系统交互来设计界面或服务接口。举个例子，“如果用户登录了系统，你会向其显示一个按钮，单击后可以看到他们的帐号信息。如果没有登录，则会显示一个登录按钮。”</p>
 
-<p>This example statement indicates that applications are largely written to satisfy user requirements and needs.  Even if the 'user' is another software system and not a human being, you still write code to reflect behavior based on who (or what) is currently interacting with your software.</p>
+<p>这个例子说明应用主要是来满足用户的需求与需要，即使这个“用户”是其他的软件系统而不是人类，你还是要基于谁（或什么）在跟你的软件交互来写代码以反映此行为。</p>
 
-<p>Shiro reflects these concepts in its own design. By matching what is already intuitive for software developers, Apache Shiro remains intuitive and easy to use in practically any application.</p>
+<p>Shiro在设计上体现了上面的概念，既满足了对软件开发人员的直观性，又保留了在实践中的易用性。</p>
 
-<h2><a name="Architecture-HighLevelOverview"></a>High-Level Overview</h2>
+<h2><a name="Architecture-HighLevelOverview"></a>高层概览</h2>
 
-<p>At the highest conceptual level, Shiro's architecture has 3 primary concepts: the <tt>Subject</tt>, <tt>SecurityManager</tt> and <tt>Realms</tt>.  The following diagram is a high-level overview of how these components interact, and we'll cover each concept below:</p>
+<p>从最高层次上讲，Shiro的架构主要有三个概念：<tt>Subject</tt>, <tt>SecurityManager</tt>和<tt>Realms</tt>。下面的图展示了这些组件间的交互，我们会在下面讲解他们：</p>
 
-<p><br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline">
+<p>
 <span class="image-wrap" style="display: block; text-align: center"><img src="assets/images/ShiroBasicArchitecture.png" style="border: 0px solid black"></span>
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></p>
