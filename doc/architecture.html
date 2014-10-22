@@ -75,71 +75,71 @@
 
 <h2><a name="Architecture-HighLevelOverview"></a>高层概览</h2>
 
-<p>从最高层次上讲，Shiro的架构主要有三个概念：<tt>Subject</tt>, <tt>SecurityManager</tt>和<tt>Realms</tt>。下面的图展示了这些组件间的交互，我们会在下面讲解他们：</p>
+<p>从最高层次上讲，Shiro的架构主要有三个概念：<tt>Subject</tt>, <tt>SecurityManager</tt>和<tt>Realms</tt>。下图展示了这些组件间的交互，接下来详细介绍：</p>
 
 <p>
 <span class="image-wrap" style="display: block; text-align: center"><img src="assets/images/ShiroBasicArchitecture.png" style="border: 0px solid black"></span>
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></p>
 
-<ul><li><b>Subject</b>: As we've mentioned in our <a href="tutorial.html" title="Tutorial">Tutorial</a>, the <tt>Subject</tt> is essentially a security specific 'view' of the the currently executing user.  Whereas the word 'User' often implies a human being, a <tt>Subject</tt> can be a person, but it could also represent a 3rd-party service, daemon account, cron job, or anything similar - basically anything that is currently interacting with the software.
+<ul><li><b>Subject</b>： 正如我们在<a href="tutorial.html" title="教程">教程</a>里提到的, <tt>Subject</tt>实际上是安全视角下的“当前执行用户”。“User”通常意指人类，而<tt>Subject</tt> 却可以是一个人，或者是第三方服务，后台账户，定时任务等等——可以是基本上任何正与软件交互的事物。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
-<tt>Subject</tt> instances are all bound to (and require) a <tt>SecurityManager</tt>.  When you interact with a <tt>Subject</tt>, those interactions translate to subject-specific interactions with the <tt>SecurityManager</tt>.
+<tt>Subject</tt>的实例都会（也是必须）绑定一个<tt>SecurityManager</tt>，对<tt>Subject</tt>的操作会转为Subject与SecurityManager之间的交互。
 <br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline"></li><li><b>SecurityManager</b>: The <tt>SecurityManager</tt> is the heart of Shiro&#8217;s architecture and acts as a sort of 'umbrella&#8217; object that coordinates its internal security components that together form an object graph. However, once the SecurityManager and its internal object graph is configured for an application, it is usually left alone and application developers spend almost all of their time with the <tt>Subject</tt> API.
-<br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline">
-We will talk about the <tt>SecurityManager</tt> in detail later on, but it is important to realize that when you interact with a <tt>Subject</tt>, it is really the <tt>SecurityManager</tt> behind the scenes that does all the heavy lifting for any <tt>Subject</tt> security operation.  This is reflected in the basic flow diagram above.
-<br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline"></li><li><b>Realms</b>:  Realms act as the &#8216;bridge&#8217; or &#8216;connector&#8217; between Shiro and your application&#8217;s security data. When it comes time to actually interact with security-related data like user accounts to perform authentication (login) and authorization (access control), Shiro looks up many of these things from one or more Realms configured for an application.
+<br clear="none" class="atl-forced-newline"></li><li><b>SecurityManager</b>： <tt>SecurityManager</tt>是Shiro架构的核心，对协调其内部的各种组件起保护伞作用。不过一旦SecurityManager配置完成，它就被放一边去了，通常开发人员只需要使用<tt>Subject</tt>。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
-In this sense a Realm is essentially a security-specific <a class="external-link" href="../en.wikipedia.org/wiki/Data_access_object" rel="nofollow">DAO</a>: it encapsulates connection details for data sources and makes the associated data available to Shiro as needed. When configuring Shiro, you must specify at least one Realm to use for authentication and/or authorization. The <tt>SecurityManager</tt> may be configured with multiple Realms, but at least one is required.
+我们稍后会详细介绍<tt>SecurityManager</tt>，但你需要知道的是，当你使用<tt>Subject</tt>进行各种操作时，在背后做苦力活的可是<tt>SecurityManager</tt>，这一点在下面的图中有所体现。
+<br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline"></li><li><b>Realms</b>： Realms在Shiro和你的安全数据之间扮演“桥梁”或“连接器”的角色。当需要用到安全数据比如用户帐号来进行认证或授权时，Shiro会从应用配置的一个或多个Realms中来查找。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
-Shiro provides out-of-the-box Realms to connect to a number of security data sources (aka directories) such as LDAP, relational databases (JDBC), text configuration sources like INI and properties files, and more. You can plug-in your own Realm implementations to represent custom data sources if the default Realms do not meet your needs.
+这个意义上Realm其实就是安全（操作）特有的<a class="external-link" href="http://en.wikipedia.org/wiki/Data_access_object" rel="nofollow">DAO</a>：它封装了数据源的细节，并在Shiro需要时提供相关数据。配置Shiro时，必须至少得有一个Realm以用于认证（和/或）授权。在<tt>SecurityManager</tt>中可以配置Realm，至少得有一个。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
-Like other internal components, the Shiro <tt>SecurityManager</tt> manages how Realms are used to acquire security and identity data to be represented as <tt>Subject</tt> instances.</li></ul>
+Shiro自带一些开箱即用的Realms用于连接像是LDAP，关系数据库（JDBC），文本配置源（比如INI）以及属性文件等等这样的安全数据来源。如果默认的不能满足你的需要，你也可以自己实现一个Realm。
+<br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline">
+正如其他内部组件，Realms由<tt>SecurityManager</tt>管理如何获取数据并传给<tt>Subject</tt>的实例。</li></ul>
 
 
-<h2><a name="Architecture-DetailedArchitecture"></a>Detailed Architecture</h2>
+<h2><a name="Architecture-DetailedArchitecture"></a>详细架构</h2>
 
-<p>The following diagram shows Shiro's core architectural concepts followed by short summaries of each:</p>
+<p>下面是Shiro的核心架构以及一些简短的介绍：</p>
 
 <p><span class="image-wrap" style="display: block; text-align: center"><img src="assets/images/ShiroArchitecture.png" style="border: 0px solid black"></span></p>
 
 <ul><li><b>Subject</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/subject/Subject.html">org.apache.shiro.subject.Subject</a></tt>)<br clear="none">
-A security-specific 'view' of the entity (user, 3rd-party service, cron job, etc) currently interacting with the software.
+安全视角下与软件交互的实体（用户，第三方服务等等）。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></li><li><b>SecurityManager</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/mgt/SecurityManager.html">org.apache.shiro.mgt.SecurityManager</a></tt>)<br clear="none">
-As mentioned above, the <tt>SecurityManager</tt> is the heart of Shiro's architecture.  It is mostly an 'umbrella' object that coordinates its managed components to ensure they work smoothly together.  It also manages Shiro's view of every application user, so it knows how to perform security operations per user.
+如上，<tt>SecurityManager</tt> 是Shiro架构的核心，起协调内部各组件的作用。同样也管理Shiro的所有用户，可以进行用户相关的安全操作。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></li><li><b>Authenticator</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/authc/Authenticator.html">org.apache.shiro.authc.Authenticator</a></tt>)<br clear="none">
-The <tt>Authenticator</tt> is the component that is responsible for executing and reacting to authentication (log-in) attempts by users.  When a user tries to log-in, that logic is executed by the <tt>Authenticator</tt>.  The <tt>Authenticator</tt> knows how to coordinate with one or more <tt>Realms</tt> that store relevant user/account information.  The data obtained from these <tt>Realms</tt> is used to verify the user's identity to guarantee the user really is who they say they are.
+<tt>Authenticator</tt>是用于执行用户的认证行为的组件，当用户登录时，登录的逻辑操作由<tt>Authenticator</tt>执行。<tt>Authenticator</tt>知道如何与存储用户/帐号信息的一个或多个<tt>Realms</tt>协作。从这些<tt>Realms</tt>获取的数据用于验证用户的真实身份。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
 	<ul><li><b>Authentication Strategy</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/authc/pam/AuthenticationStrategy.html">org.apache.shiro.authc.pam.AuthenticationStrategy</a></tt>)<br clear="none">
-If more than one <tt>Realm</tt> is configured, the <tt>AuthenticationStrategy</tt> will coordinate the Realms to determine the conditions under which an authentication attempt succeeds or fails (for example, if one realm succeeds but others fail, is the attempt successful? Must all realms succeed? Only the first?).
+如果配置了不止一个<tt>Realm</tt>，<tt>AuthenticationStrategy</tt>将用来决定什么样的条件下认证会成功或失败（比如，如果一个realm的数据认证成功而其他的却失败了，能算是认证通过吗？还是必须所有的都认证成功？还是只要一个就可以？）。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></li></ul>
 	</li><li><b>Authorizer</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/authz/Authorizer.html">org.apache.shiro.authz.Authorizer</a></tt>)<br clear="none">
-The <tt>Authorizer</tt> is the component responsible determining users' access control in the application.  It is the mechanism that ultimately says if a user is allowed to do something or not.  Like the <tt>Authenticator</tt>, the <tt>Authorizer</tt> also knows how to coordinate with multiple back-end data sources to access role and permission information.  The <tt>Authorizer</tt> uses this information to determine exactly if a user is allowed to perform a given action.
+<tt>Authorizer</tt>用于控制程序中用户的访问，最终决定用户是否被允许做什么。和<tt>Authenticator</tt>一样, <tt>Authorizer</tt>也会与底层的数据源交互来获取角色与权限信息，从而准确控制用户的行为。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></li><li><b>SessionManager</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/session/mgt/SessionManager.html">org.apache.shiro.session.mgt.SessionManager</a></tt>)<br clear="none">
-The <tt>SessionManager</tt> knows how to create and manage user <tt>Session</tt> lifecycles to provide a robust Session experience for users in all environments.  This is a unique feature in the world of security frameworks - Shiro has the ability to natively manage user Sessions in any environment, even if there is no Web/Servlet or EJB container available.  By default, Shiro will use an existing session mechanism if available, (e.g. Servlet Container), but if there isn't one, such as in a standalone application or non-web environment, it will use its built-in enterprise session management to offer the same programming experience.  The <tt>SessionDAO</tt> exists to allow any datasource to be used to persist sessions.
+<tt>SessionManager</tt>可以创建用户<tt>会话（Session）</tt>维护其生命周期并在所有环境中提供了强大的用户体验。Shiro可以管理任何环境下的用户会话，即使是非Web/Servlet或EJB容器下——这是区别于其他安全框架而特有的功能。默认情况下，Shiro会使用（容器）提供的会话管理机制，但如果没有，比如在独立的程序或非Web环境中，Shiro将使用它内置的企业会话管理功能以提供一致的编程体验。<tt>SessionDAO</tt>可使用各种数据源来存储会话。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
 	<ul><li><b>SessionDAO</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/session/mgt/eis/SessionDAO.html">org.apache.shiro.session.mgt.eis.SessionDAO</a></tt>)<br clear="none">
-The <tt>SessionDAO</tt> performs <tt>Session</tt> persistence (CRUD) operations on behalf of the <tt>SessionManager</tt>.  This allows any data store to be plugged in to the Session Management infrastructure.
+<tt>SessionDAO</tt>替<tt>SessionManager</tt>执行<tt>会话</tt>的存储操作（CRUD）。任何的数据存储都可以接入到会话管理中。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></li></ul>
 	</li><li><b>CacheManager</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/cache/CacheManager.html">org.apache.shiro.cache.CacheManager</a></tt>)<br clear="none">
-The <tt>CacheManager</tt> creates and manages <tt>Cache</tt> instance lifecycles used by other Shiro components.  Because Shiro can access many back-end data sources for authentication, authorization and session management, caching has always been a first-class architectural feature in the framework to improve performance while using these data sources.  Any of the modern open-source and/or enterprise caching products can be plugged in to Shiro to provide a fast and efficient user-experience.
+<tt>CacheManager</tt>创建与管理<tt>缓存</tt>的实例与生命周期以供Shiro中的其他组件使用。因为在Shiro中可以使用多个数据源用于认证、授权和会话管理，而缓存可以在使用这些数据源时改善性能，所以也就成为框架中很重要的一个功能。 Shiro中可以使用任何开源或商业的缓存方案。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></li><li><b>Cryptography</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/crypto/package-summary.html">org.apache.shiro.crypto.*</a></tt>)<br clear="none">
-Cryptography is a natural addition to an enterprise security framework.  Shiro's <tt>crypto</tt> package contains easy-to-use and understand representations of crytographic Ciphers, Hashes (aka digests) and different codec implementations.  All of the classes in this package are carefully designed to be very easy to use and easy to understand.  Anyone who has used Java's native cryptography support knows it can be a challenging animal to tame.  Shiro's crypto APIs simplify the complicated Java mechanisms and make cryptography easy to use for normal mortal human beings.
+加密是企业级安全框架固有的功能，Shiro的<tt>crypto</tt>包对密码、哈希和各种编码实现提供了易于使用和理解的封装 。该包下的所有类都为此精心设计，那些用过Java的原生安全加密功能的人应该了解这是多么大的一个挑战。Shiro的加密API简化了Java加密中的复杂性。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></li><li><b>Realms</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/realm/Realm.html">org.apache.shiro.realm.Realm</a></tt>)<br clear="none">
 As mentioned above, Realms act as the &#8216;bridge&#8217; or &#8216;connector&#8217; between Shiro and your application&#8217;s security data. When it comes time to actually interact with security-related data like user accounts to perform authentication (login) and authorization (access control), Shiro looks up many of these things from one or more Realms configured for an application.  You can configure as many <tt>Realms</tt> as you need (usually one per data source) and Shiro will coordinate with them as necessary for both authentication and authorization.</li></ul>
