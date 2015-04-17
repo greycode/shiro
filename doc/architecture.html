@@ -33,15 +33,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/confluence.css" media="screen">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <script type="text/javascript" src="../ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery_googleanalytics/jquery.google-analytics.js"></script>
-    <script type="text/javascript">
-        // initialize plugins
-        jQuery(function() {
-            //Google Analytics
-            jQuery.trackPage('UA-55157705-1');
-        });
-    </script>
+  
 </head>
 
 <body>
@@ -73,25 +65,22 @@
 
 <p>Shiro在设计上体现了上面的概念，既满足了对软件开发人员的直观性，又保留了在实践中的易用性。</p>
 
-<h2><a name="Architecture-HighLevelOverview"></a>高层概览</h2>
+<h2><a name="Architecture-HighLevelOverview"></a>概览</h2>
 
-<p>从最高层次上讲，Shiro的架构主要有三个概念：<tt>Subject</tt>, <tt>SecurityManager</tt>和<tt>Realms</tt>。下图展示了这些组件间的交互，接下来详细介绍：</p>
+<p>Shiro的架构主要有三个顶级概念：<tt>Subject</tt>, <tt>SecurityManager</tt>和<tt>Realms</tt>。图中展示了这些组件间的交互，接下来详细介绍：</p>
 
 <p>
 <span class="image-wrap" style="display: block; text-align: center"><img src="assets/images/ShiroBasicArchitecture.png" style="border: 0px solid black"></span>
-<br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></p>
 
-<ul><li><b>Subject</b>： 正如我们在<a href="tutorial.html" title="教程">教程</a>里提到的, <tt>Subject</tt>实际上是安全视角下的“当前执行用户”。“User”通常意指人类，而<tt>Subject</tt> 却可以是一个人，或者是第三方服务，后台账户，定时任务等等——可以是基本上任何正与软件交互的事物。
+<ul><li><b>Subject</b>： 正如我们在<a href="tutorial.html" title="教程">教程</a>里提到的, <tt>Subject</tt>实际上是安全领域里的“当前执行用户”。“User”通常意指人类，而<tt>Subject</tt> 却可以是一个人，或者是第三方服务，守护进程帐户，定时任务等等——可以是基本上任何正与软件交互的事物。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
 <tt>Subject</tt>的实例都会（也是必须）绑定一个<tt>SecurityManager</tt>，对<tt>Subject</tt>的操作会转为Subject与SecurityManager之间的交互。
+<br clear="none" class="atl-forced-newline"></li><li><b>SecurityManager</b>： <tt>SecurityManager</tt>是Shiro架构的核心，像个“保护伞”一样协调内部组件运作。不过一旦SecurityManager配置完成，它就被放一边去了，通常开发人员只需要使用<tt>Subject</tt>。
 <br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline"></li><li><b>SecurityManager</b>： <tt>SecurityManager</tt>是Shiro架构的核心，对协调其内部的各种组件起保护伞作用。不过一旦SecurityManager配置完成，它就被放一边去了，通常开发人员只需要使用<tt>Subject</tt>。
 <br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline">
-我们稍后会详细介绍<tt>SecurityManager</tt>，但你需要知道的是，当你使用<tt>Subject</tt>进行各种操作时，在背后做苦力活的可是<tt>SecurityManager</tt>，这一点在下面的图中有所体现。
-<br clear="none" class="atl-forced-newline">
+稍后详细介绍<tt>SecurityManager</tt>，现在你需要知道的是，当使用<tt>Subject</tt>进行各种操作时，在背后做苦力活的可是<tt>SecurityManager</tt>，这一点在上面的图中有所体现。
 <br clear="none" class="atl-forced-newline"></li><li><b>Realms</b>： Realms在Shiro和你的安全数据之间扮演“桥梁”或“连接器”的角色。当需要用到安全数据比如用户帐号来进行认证或授权时，Shiro会从应用配置的一个或多个Realms中来查找。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
@@ -101,7 +90,7 @@
 Shiro自带一些开箱即用的Realms用于连接像是LDAP，关系数据库（JDBC），文本配置源（比如INI）以及属性文件等等这样的安全数据来源。如果默认的不能满足你的需要，你也可以自己实现一个Realm。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline">
-正如其他内部组件，Realms由<tt>SecurityManager</tt>管理如何获取数据并传给<tt>Subject</tt>的实例。</li></ul>
+同其他内部组件一样，Realms由<tt>SecurityManager</tt>管理着如何获取数据并传给<tt>Subject</tt>的实例。</li></ul>
 
 
 <h2><a name="Architecture-DetailedArchitecture"></a>详细架构</h2>
@@ -142,14 +131,14 @@ Shiro自带一些开箱即用的Realms用于连接像是LDAP，关系数据库�
 加密是企业级安全框架固有的功能，Shiro的<tt>crypto</tt>包对密码、哈希和各种编码实现提供了易于使用和理解的封装 。该包下的所有类都为此精心设计，那些用过Java的原生安全加密功能的人应该了解这是多么大的一个挑战。Shiro的加密API简化了Java加密中的复杂性。
 <br clear="none" class="atl-forced-newline">
 <br clear="none" class="atl-forced-newline"></li><li><b>Realms</b> (<tt><a class="external-link" href="static/current/apidocs/org/apache/shiro/realm/Realm.html">org.apache.shiro.realm.Realm</a></tt>)<br clear="none">
-As mentioned above, Realms act as the &#8216;bridge&#8217; or &#8216;connector&#8217; between Shiro and your application&#8217;s security data. When it comes time to actually interact with security-related data like user accounts to perform authentication (login) and authorization (access control), Shiro looks up many of these things from one or more Realms configured for an application.  You can configure as many <tt>Realms</tt> as you need (usually one per data source) and Shiro will coordinate with them as necessary for both authentication and authorization.</li></ul>
+如上所知，Realm在shiro与应用安全数据之间扮演“桥梁”/“连接器”的角色。每当因为执行认证或授权操作而需要像用户帐号等安全相关的数据时，shiro会从程序配置的一个或多个Realm中查询。你可以根据需要配置多个<tt>Realm</tt>。</li></ul>
 
 
-<h2><a name="Architecture-The%7B%7BSecurityManager%7D%7D"></a>The <tt>SecurityManager</tt></h2>
+<h2><a name="Architecture-The%7B%7BSecurityManager%7D%7D"></a><tt>SecurityManager</tt></h2>
 
-<p>Because Shiro's API encourages a <tt>Subject</tt>-centric programming approach, most application developers will rarely, if ever, interact with the <tt>SecurityManager</tt> directly (framework developers however might sometimes find it useful). Even so, it is still important to know how the <tt>SecurityManager</tt> functions, especially when configuring one for an application.</p>
+<p>因为Shiro的API鼓励开发人员使用以<tt>Subject</tt>为中心的编程方式，所以大多数情况下不会用到<tt>SecurityManager</tt>，即使如此，知道如何配置以及<tt>SecurityManager</tt>的运行机制还是很重要的。</p>
 
-<h2><a name="Architecture-Design"></a>Design</h2>
+<h2><a name="Architecture-Design"></a>设计</h2>
 
 <p>As stated previously, the application's <tt>SecurityManager</tt> performs security operations and manages state for <em>all</em> application users.  In Shiro's default <tt>SecurityManager</tt> implementations, this includes:</p>
 
