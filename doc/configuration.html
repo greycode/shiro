@@ -18,14 +18,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description" content="Apache Shiro is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management.">
-    <meta name="google-site-verification" content="QIax6uT5UX3enoU0G8Pz2pXbQ45KaQuHZ3nCh9V27mw">
-    <meta name="msvalidate.01" content="0B57EB46CBFAD8FD45008D2DB6B6C68C">
-    <meta name="y_key" content="e47896cd6bae4920">
 
-    <title>
-                    Apache Shiro | Java Security Framework
-        </title>
-
+    <title>Apache Shiro | Java Security Framework</title>
 
     <link rel="icon" type="image/vnd.microsoft.icon" href="assets/images/favicon.ico">
 
@@ -33,15 +27,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/confluence.css" media="screen">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <script type="text/javascript" src="../ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery_googleanalytics/jquery.google-analytics.js"></script>
-    <script type="text/javascript">
-        // initialize plugins
-        jQuery(function() {
-            //Google Analytics
-            jQuery.trackPage('UA-55157705-1');
-        });
-    </script>
+   
 </head>
 
 <body>
@@ -63,37 +49,37 @@
 
         <div id="content">
 
-            <h1><a name="Configuration-ApacheShiroConfiguration"></a>Apache Shiro Configuration</h1>
+            <h1><a name="Configuration-ApacheShiroConfiguration"></a>Apache Shiro的配置</h1>
 
 <div class="toc">
 <ul><li><a href="#Configuration-ProgrammaticConfiguration">Programmatic Configuration</a></li><ul><li><a href="#Configuration-SecurityManagerObjectGraph">SecurityManager Object Graph</a></li></ul><li><a href="#Configuration-INIConfiguration">INI Configuration</a></li><ul><li><a href="#Configuration-CreatingaSecurityManagerfromINI">Creating a SecurityManager from INI</a></li><ul><li><a href="#Configuration-SecurityManagerfromanINIresource">SecurityManager from an INI resource</a></li><li><a href="#Configuration-SecurityManagerfromanINIinstance">SecurityManager from an INI instance</a></li></ul><li><a href="#Configuration-INISections">INI Sections</a></li><ul><li><a href="#Configuration-%5Cmain%5C">[main]</a></li><ul><li><a href="#Configuration-Defininganobject">Defining an object</a></li><li><a href="#Configuration-Settingobjectproperties">Setting object properties</a></li><ul><li><a href="#Configuration-PrimitiveValues">Primitive Values</a></li><li><a href="#Configuration-ReferenceValues">Reference Values</a></li><li><a href="#Configuration-NestedProperties">Nested Properties</a></li><li><a href="#Configuration-ByteArrayValues">Byte Array Values</a></li><li><a href="#Configuration-CollectionProperties">Collection Properties</a></li></ul><li><a href="#Configuration-Considerations">Considerations</a></li><ul><li><a href="#Configuration-OrderMatters">Order Matters</a></li><li><a href="#Configuration-OverridingInstances">Overriding Instances</a></li><li><a href="#Configuration-DefaultSecurityManager">Default SecurityManager</a></li></ul></ul><li><a href="#Configuration-%5Cusers%5C">[users]</a></li><ul><li><a href="#Configuration-LineFormat">Line Format</a></li><li><a href="#Configuration-EncryptingPasswords">Encrypting Passwords</a></li></ul><li><a href="#Configuration-%5Croles%5C">[roles]</a></li><ul><li><a href="#Configuration-LineFormat">Line Format</a></li></ul><li><a href="#Configuration-%5Curls%5C">[urls]</a></li></ul></ul><li><a href="#Configuration-Lendahandwithdocumentation">Lend a hand with documentation</a></li></ul></div>
 
-<p>Shiro is designed to work in any environment, from simple command-line applications to the largest enterprise clustered applications.  Because of this diversity of environments, there are a number of configuration mechanisms that are suitable for configuration.  This section covers the configuration mechanisms that are supported by Shiro core only.</p>
+<p>Shiro可以在简单的命令行程序以及企业集群应用中使用。因为可应用环境的多样性，Shiro支持多种配置方式。本节仅介绍Shiro核心模块支持的配置方法。</p>
 
-<div class="panelMacro"><table class="tipMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="../https@cwiki.apache.org/confluence/images/icons/emoticons/check.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>Many Configuration Options</b><br clear="none">Shiro's <tt>SecurityManager</tt> implementations and all supporting components are all JavaBeans compatible.  This allows Shiro to be configured with practically any configuration format such as regular Java, XML (Spring, JBoss, Guice, etc), <a class="external-link" href="../www.yaml.org/default.htm" rel="nofollow">YAML</a>, JSON, Groovy Builder markup, and more.</td></tr></table></div>
+<div class="panelMacro"><table class="tipMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="https://cwiki.apache.org/confluence/images/icons/emoticons/check.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>多种配置选择</b><br clear="none">Shiro中的<tt>SecurityManager</tt> 实现类及其所支持的组件都是JavaBeans兼容的，因此可以使用多种方式配置，比如Java, XML（Spring, JBoss, Guice等等）,<a class="external-link" href="http://www.yaml.org/default.htm" rel="nofollow">YAML</a>, JSON, Groovy Builder markup以及其他。</td></tr></table></div>
 
-<h2><a name="Configuration-ProgrammaticConfiguration"></a>Programmatic Configuration</h2>
+<h2><a name="Configuration-ProgrammaticConfiguration"></a>编程配置</h2>
 
-<p>The absolute simplest way to create a SecurityManager and make it available to the application is to create an <tt>org.apache.shiro.mgt.DefaultSecurityManager</tt> and wire it up in code.  For example:</p>
+<p>创建SecurityManager最最简单的方式就是在代码里new一个<tt>org.apache.shiro.mgt.DefaultSecurityManager</tt>对象，如下：</p>
 
 <div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
 <pre class="code-java">
-Realm realm = <span class="code-comment">//instantiate or acquire a Realm instance.  We'll discuss Realms later.
+Realm realm = <span class="code-comment">// 实例化或获得一个Realm的实例，稍后讨论Realm。
 </span>
 <span class="code-object">SecurityManager</span> securityManager = <span class="code-keyword">new</span> DefaultSecurityManager(realm);
 
-<span class="code-comment">//Make the <span class="code-object">SecurityManager</span> instance available to the entire application via <span class="code-keyword">static</span> memory:
+<span class="code-comment">// 使 <span class="code-object">SecurityManager</span> 可在整个应用里使用
 </span>SecurityUtils.setSecurityManager(securityManager);
 </pre>
 </div></div>
 
-<p>Surprisingly, after only 3 lines of code, you now have a fully functional Shiro environment suitable for many applications.  How easy was that!?</p>
+<p>只用了三行代码就配置好一个功能完备适用许多应用的Shiro环境，so easy!!</p>
 
-<h3><a name="Configuration-SecurityManagerObjectGraph"></a>SecurityManager Object Graph</h3>
+<h3><a name="Configuration-SecurityManagerObjectGraph"></a>SecurityManager 对象视图</h3>
 
-<p>As discussed in the <a href="architecture.html" title="Architecture">Architecture</a> chapter, Shiro's <tt>SecurityManager</tt> implementations are essentially a modular object graph of nested security-specific components.  Because they are also JavaBeans-compatible, you can call any of the nested components <tt>getter</tt> and <tt>setter</tt> methods to configure the <tt>SecurityManager</tt> and its internal object graph.</p>
+<p>如之前在<a href="architecture.html" title="Architecture">架构</a>一章中所说, Shiro中所有<tt>SecurityManager</tt> 的实现本质上是其内部安全组件的一个模块化的对象图。因为兼容JavaBean，所以可通过调用这些内部组件的<tt>getter</tt>和 <tt>setter</tt>方法来配置<tt>SecurityManager</tt>。</p>
 
-<p>For example, if you wanted to configure the <tt>SecurityManager</tt> instance to use a custom <tt>SessionDAO</tt> to customize <a href="session-management.html" title="Session Management">Session Management</a>, you could set the <tt>SessionDAO</tt> directly with the nested SessionManager's <tt>setSessionDAO</tt> method:</p>
+<p>比如说，你想定制shiro的<a href="session-management.html" title="Session Management">会话管理</a>功能，可以通过给<tt>SecurityManager</tt>配置一个自定义的<tt>SessionDAO</tt>。而配置<tt>SessionDAO</tt>只需直接调用SessionManager的<tt>setSessionDAO</tt>方法即可：</p>
 
 <div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
 <pre class="code-java">
@@ -108,17 +94,14 @@ SessionDAO sessionDAO = <span class="code-keyword">new</span> CustomSessionDAO()
 </pre>
 </div></div>
 
-<p>Using direct method invocations, you can configure any part of the <tt>SecurityManager</tt>'s object graph.</p>
+<p>你可以使用类似的方法配置<tt>SecurityManager</tt>中的其他组件。</p>
 
-<p>But, as simple as programmatic customization is, it does not represent the ideal configuration for most real world applications.  There are a few reasons why programmatic configuration may not be suitable for your application:</p>
+<p>不过尽管编程化的配置方式很方便，但在实际的应用中会有些问题：</p>
 
-<ul><li>It requires you to know about and instantiate a direct implementation.  It would be nicer if you didn't have to know about concrete implementations and where to find them.
-<br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline"></li><li>Because of Java's type-safe nature, you're required to cast objects obtained via <tt>get*</tt> methods to their specific implementation.  So much casting is ugly, verbose, and tightly-couples you to implementation classes.
-<br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline"></li><li>The <tt>SecurityUtils.setSecurityManager</tt> method call makes the instantiated <tt>SecurityManager</tt> instance a VM static singleton, which, while fine for many applications, would cause problems if more than one Shiro-enabled application was running on the same JVM.  It could be better if the instance was an application singleton, but not a static memory reference.
-<br clear="none" class="atl-forced-newline">
-<br clear="none" class="atl-forced-newline"></li><li>It requires you to recompile your application every time you want to make a Shiro configuration change.</li></ul>
+<ul><li>你需要知道并实例化某些组件的直接实现类，但其实不用关心具体实现类和它们的位置会更好。
+<br clear="none" class="atl-forced-newline"></li><li>因为Java是类型安全的，对某些通过<tt>get*</tt>方法获取的对象需要强制转换。但是强制转换的代码太丑，太罗嗦，与具体的实现类耦合太紧。
+<br clear="none" class="atl-forced-newline"></li><li>调用<tt>SecurityUtils.setSecurityManager</tt>方法会创建<tt>SecurityManager</tt>的一个静态单例对象，这么做虽然在某些应用中行得通，但在同一个JVM中运行多个Shiro程序的情况下会出问题。使用单例对象非常好，但不应该变成静态的。
+<br clear="none" class="atl-forced-newline"></li><li>每次变更配置都需要重新编译。</li></ul>
 
 
 <p>However, even with these caveats, the direct programmatic manipulation approach could still be valuable in memory-constrained environments, like smart-phone applications.  If your application does not run in a memory-constrained environment, you'll find text-based configuration to be easier to use and read.</p>
